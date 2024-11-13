@@ -1,0 +1,108 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+// space complexity of the arr of cap  = O(cap)
+// Time complexity is O(1) for all the enqueu, deqeueu , isFULL, isEMpty, O(1)
+// result  = O(N)  
+
+class Queue {
+    int size = 0;  
+    int cap, *arr;
+    int front;    
+
+public:
+
+    Queue(int c) {
+        cap = c;
+        arr = new int[c];
+        size = 0;
+        front = 0;
+    }
+
+
+    bool isEmpty() {
+        return (size == 0);
+    }
+
+
+    bool isFull() {
+        return (cap == size);
+    }
+
+
+    int getFront() {
+        if (isEmpty()) {
+            return -1;
+        } else {
+            return arr[front];
+        }
+    }
+
+
+    int getRear() {
+        if (isEmpty()) {
+            return -1;
+        } else {
+            return arr[(front + size - 1) % cap];
+        }
+    }
+
+    void enqueu(int x) {
+        if (isFull()) {
+            cout << "Queue is full\n";
+            return;
+        }
+        int rearIndex = (front + size) % cap; 
+        arr[rearIndex] = x;
+        size++;
+    }
+
+
+    void dequeu() {
+        if (isEmpty()) {
+            cout << "Queue is empty\n";
+            return;
+        }
+        front = (front + 1) % cap;  
+        size--;
+    }
+
+   
+    void result() {
+        if (isEmpty()) {
+            cout << "Queue is empty\n";
+            return;
+        }
+        cout << "Queue elements: ";
+        for (int i = 0; i < size; i++) {
+            cout << arr[(front + i) % cap] << " ";
+        }
+        cout << endl;
+    }
+};
+
+int main() {
+    Queue q(5); 
+    q.enqueu(12);
+    q.enqueu(34);
+    q.dequeu(); 
+    q.enqueu(21);
+    cout << "Front element of the queue is : " << q.getFront() << endl;
+    q.enqueu(78);
+    q.result();  
+    q.dequeu();  
+    cout << "Rear element of the queue is : " << q.getRear() << endl; 
+    q.result();  
+    return 0;
+    
+    
+    
+    /*
+    Front element of the queue is : 34
+    Queue elements: 34 21 78 
+    Rear element of the queue is : 78
+    Queue elements: 21 78 
+    
+    This implementation of a circular queue is efficient for most operations, making it a good choice for scenarios where fixed-size queues are sufficient.
+    */
+}
