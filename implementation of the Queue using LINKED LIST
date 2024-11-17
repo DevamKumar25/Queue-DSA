@@ -1,0 +1,86 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+***********************************************
+// TIME COMPLEXITY  = Enqueue (enqueu): O(1)
+                      Dequeue (dequeue): O(1)
+***********************************************
+
+SPACE COMPOLEXITY OF THE QUEUEU: O(n) for n nodes in the queue.
+
+****************************************************
+
+class Node{
+    public:
+    int data;
+    Node* next;
+    Node(){
+        data = 0;
+        next = NULL;
+    }
+    Node(int x){
+        data = x;
+        next = NULL;
+    }
+    Node(int x, Node* next){
+        data = x;
+        next = next;
+    }
+};
+
+
+*******************************************************
+Use class when you need to create objects with behavior (methods) and want to use features of object-oriented programming.
+Use struct when you need a simple data structure to group data, especially when all members are intended to be public.
+*******************************************************
+
+struct Queue{
+    Node *front, *rear;
+    void enqueu(x);
+    int dequeue();
+    Queue(){
+        front = NULL;
+        rear = NULL;
+    }
+};
+
+
+void Queue::enqueu(int x){
+    Node* temp = new Node(x);
+    if(temp==NULL){
+        front = rear = temp;
+        return;
+    }
+    rear->next = temp;
+    rear = temp;
+}
+
+int Queue::dequeue(){
+    if(front==NULL){
+        return -1;
+    }
+    Node* temp = front;
+    int data = front->data;
+    
+    front = front->next;
+    
+    if(front==NULL){
+        front=rear = NULL;
+    }
+    delete temp;
+    return data;
+}
+
+
+int main(){
+    Queue q;
+    q.enqueu(2);
+    q.enqueu(21);
+    cout<<q.dequeue();
+    q.enqueu(12);
+    q.enqueu(9);
+    cout<<q.dequeue();
+    q.enqueu(20);
+    return 0;
+}
+    
