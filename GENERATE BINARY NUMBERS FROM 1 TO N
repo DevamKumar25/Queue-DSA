@@ -1,0 +1,50 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+*******************************************************
+Time Complexity: 
+ = O(n)
+
+space complexity  = O(n*log n)
+
+******************************************************
+
+
+
+
+//FUNCTION TO GENERATE BINARY NUMBERS FROM 1 TO N
+vector<string> generateBinaryNumbers(int n)
+{
+    vector<string> result;
+    queue<string> q;
+
+    // START WITH A '1' IN A QUEUE
+    q.push("1");
+
+    for (int count = 0; count < n; count++) {
+        //GET THE FRONT ELEMENT FROM THE QUEUE
+        string current = q.front();
+        q.pop();
+
+        // Add it to the result
+        result.push_back(current);
+
+        // ENQUEUE THE NEXT TWO BINARY NUMBERS
+        q.push(current + "0");
+        q.push(current + "1");
+    }
+
+    return result;
+}
+
+int main() {
+    int n = 10; 
+    vector<string> binaryNumbers = generateBinaryNumbers(n);
+
+    
+    for (const string& binary : binaryNumbers) {
+        cout << binary << " ";
+    }
+
+    return 0;
+}
